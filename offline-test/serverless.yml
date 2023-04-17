@@ -1,0 +1,23 @@
+service: offline-test
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: eu-west-1
+  stage: dev
+  runtime: python3.8
+
+functions:
+  hello:
+    handler: handler.hello
+    timeout: 300
+    layers:
+      - arn:aws:lambda:eu-west-1:336392948345:layer:AWSSDKPandas-Python38:6
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    useDocker: true # to be able to work with layers
